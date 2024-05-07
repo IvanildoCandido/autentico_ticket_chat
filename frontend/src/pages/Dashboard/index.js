@@ -14,9 +14,9 @@ import SpeedIcon from "@material-ui/icons/Speed";
 import GroupIcon from "@material-ui/icons/Group";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonIcon from "@material-ui/icons/Person";
-import TodayIcon from '@material-ui/icons/Today';
-import BlockIcon from '@material-ui/icons/Block';
-import DoneIcon from '@material-ui/icons/Done';
+import TodayIcon from "@material-ui/icons/Today";
+import BlockIcon from "@material-ui/icons/Block";
+import DoneIcon from "@material-ui/icons/Done";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { grey, blue } from "@material-ui/core/colors";
@@ -146,8 +146,6 @@ const Dashboard = () => {
 
     const data = await find(params);
 
-
-
     setCounters(data.counters);
     if (isArray(data.attendants)) {
       setAttendants(data.attendants);
@@ -163,7 +161,7 @@ const Dashboard = () => {
       await loadCompanies();
     }
     fetchData();
-  }, [])
+  }, []);
   //let companyDueDate = localStorage.getItem("companyDueDate");
   //const companyDueDate = localStorage.getItem("companyDueDate").toString();
   const companyId = localStorage.getItem("companyId");
@@ -246,46 +244,14 @@ const Dashboard = () => {
     <div>
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3} justifyContent="flex-end">
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <CardCounter
               icon={<TodayIcon fontSize="inherit" />}
               title="Data Vencimento"
               value={companyDueDate}
               loading={loading}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <Paper className={classes.fixedHeightPaper}>
-              <Chart />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <FormControl className={classes.selectContainer}>
-              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
-              <Select
-                labelId="period-selector-label"
-                value={filterType}
-                onChange={(e) => handleChangeFilterType(e.target.value)}
-              >
-                <MenuItem value={1}>Filtro por Data</MenuItem>
-                <MenuItem value={2}>Filtro por Período</MenuItem>
-              </Select>
-              <FormHelperText>Selecione o período desejado</FormHelperText>
-            </FormControl>
-          </Grid>
-
-          {renderFilters()}
-
-          <Grid item xs={12} className={classes.alignRight}>
-            <ButtonWithSpinner
-              loading={loading}
-              onClick={() => fetchData()}
-              variant="contained"
-              color="primary"
-            >
-              Filtrar
-            </ButtonWithSpinner>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6} md={4}>
             <CardCounter
               icon={<GroupIcon fontSize="inherit" />}
@@ -333,6 +299,38 @@ const Dashboard = () => {
               value={formatTime(counters.avgWaitTime)}
               loading={loading}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.fixedHeightPaper}>
+              <Chart />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl className={classes.selectContainer}>
+              <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
+              <Select
+                labelId="period-selector-label"
+                value={filterType}
+                onChange={(e) => handleChangeFilterType(e.target.value)}
+              >
+                <MenuItem value={1}>Filtro por Data</MenuItem>
+                <MenuItem value={2}>Filtro por Período</MenuItem>
+              </Select>
+              <FormHelperText>Selecione o período desejado</FormHelperText>
+            </FormControl>
+          </Grid>
+
+          {renderFilters()}
+
+          <Grid item xs={12} className={classes.alignRight}>
+            <ButtonWithSpinner
+              loading={loading}
+              onClick={() => fetchData()}
+              variant="contained"
+              color="primary"
+            >
+              Filtrar
+            </ButtonWithSpinner>
           </Grid>
           <Grid item xs={12}>
             {attendants.length ? (
