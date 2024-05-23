@@ -199,26 +199,26 @@ const EmojiOptions = (props) => {
 
 const SignSwitch = (props) => {
   const { width, setSignMessage, signMessage } = props;
-  if (isWidthUp("md", width)) {
-    return (
-      <FormControlLabel
-        style={{ marginRight: 7, color: "gray" }}
-        label={i18n.t("messagesInput.signMessage")}
-        labelPlacement="start"
-        control={
-          <Switch
-            size="small"
-            checked={signMessage}
-            onChange={(e) => {
-              setSignMessage(e.target.checked);
-            }}
-            name="showAllTickets"
-            color="primary"
-          />
-        }
-      />
-    );
-  }
+  // if (isWidthUp("md", width)) {
+  //   return (
+  //     <FormControlLabel
+  //       style={{ marginRight: 7, color: "gray" }}
+  //       label={i18n.t("messagesInput.signMessage")}
+  //       labelPlacement="start"
+  //       control={
+  //         <Switch
+  //           size="small"
+  //           checked={signMessage}
+  //           onChange={(e) => {
+  //             setSignMessage(e.target.checked);
+  //           }}
+  //           name="showAllTickets"
+  //           color="primary"
+  //         />
+  //       }
+  //     />
+  //   );
+  // }
   return null;
 };
 
@@ -396,7 +396,6 @@ const CustomInput = (props) => {
     return i18n.t("messagesInput.placeholderClosed");
   };
 
-
   const setInputRef = (input) => {
     if (input) {
       input.focus();
@@ -421,13 +420,16 @@ const CustomInput = (props) => {
           }
         }}
         onChange={(event, opt) => {
-         
           if (isObject(opt) && has(opt, "value") && isNil(opt.mediaPath)) {
             setInputMessage(opt.value);
             setTimeout(() => {
               inputRef.current.scrollTop = inputRef.current.scrollHeight;
             }, 200);
-          } else if (isObject(opt) && has(opt, "value") && !isNil(opt.mediaPath)) {
+          } else if (
+            isObject(opt) &&
+            has(opt, "value") &&
+            !isNil(opt.mediaPath)
+          ) {
             handleQuickAnswersClick(opt);
 
             setTimeout(() => {
@@ -529,7 +531,7 @@ const MessageInputCustom = (props) => {
       const formData = new FormData();
       const filename = `${new Date().getTime()}.${extension}`;
       formData.append("medias", blob, filename);
-      formData.append("body",  message);
+      formData.append("body", message);
       formData.append("fromMe", true);
 
       await api.post(`/messages/${ticketId}`, formData);
@@ -539,7 +541,7 @@ const MessageInputCustom = (props) => {
     }
     setLoading(false);
   };
-  
+
   const handleQuickAnswersClick = async (value) => {
     if (value.mediaPath) {
       try {
